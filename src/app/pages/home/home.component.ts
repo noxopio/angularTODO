@@ -30,17 +30,26 @@ export class HomeComponent {
     nonNullable: true,
     validators: [
       Validators.required,
+      // Validators.pattern(/^[a-zA-Z\s]+$/),
+      Validators.minLength(3),
     ]
   })
 
-
-
-
-  changeHandler(event: Event) {
-    const input = event.target as HTMLInputElement;
-    const newTask = input.value;
-    this.addTask(newTask);
+  changeHandler() {
+    if (this.newTaskCtrl.valid) {
+      const value = this.newTaskCtrl.value.trim();
+      if (value !== '') {
+        this.addTask(value);
+        this.newTaskCtrl.setValue('');
+      }
+    }
   }
+
+  // changeHandler(event: Event) {
+  //   const input = event.target as HTMLInputElement;
+  //   const newTask = input.value;
+  //   this.addTask(newTask);
+  // }
 
   addTask(title: string) {
     const newTask = {
