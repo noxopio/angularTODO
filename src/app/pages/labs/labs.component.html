@@ -1,0 +1,67 @@
+<article class="container">
+  <h1>{{title}} </h1>
+  <ul>
+    <p>{{title}} </p>
+    <li *ngFor="let task of tasks()">{{task}} </li>
+  </ul>
+  <hr />
+  <h2>{{'welcome '}} </h2>
+  <h2>hola soy {{name()}} y tengo {{age}} añós</h2>
+  <hr>
+  <img [src]="img" alt="">
+  <input type="number" [value]="person().age">
+  <button [disabled]="disabled">Click me</button>
+  <p>person():{{person().name}}</p>
+  <img [src]="person().avatar" alt="" />
+  <hr>
+  <button (click)="clickHandler()">Click</button>
+  <button (dblclick)="clickHandler()">double</button>
+  <p>
+    (change)
+  </p>
+
+  <input type="number" [value]="person().age" (change)="changeHandler($event)">
+
+  <p>
+    (keydown)
+  </p>
+
+  <input type="text" [value]="person().name" (keydown)="keydownHandler($event)">
+  <hr>
+  <h1>Signals</h1>
+  <!-- <input type="text" [value]="name()" (change)="changeHandler($event)">
+  <p>name:{{name()}} </p> -->
+  <hr>
+  <ul>
+
+    <li *ngFor="let task of tasks();index as i"> {{i}} {{task}} </li>
+  </ul>
+  <hr>
+  <div *ngIf="name()==='NoxDev'">
+    soy nicolas
+  </div>
+  <div *ngIf="person().name === 'NoxDev'&& person().age>18;else elseBlock">
+    un dos tres por {{ name()}} que esta aprediendo angular
+  </div>
+
+  <ng-template #elseBlock>
+    yei otro block
+  </ng-template>
+
+
+  <input type="text" [value]="person().name" (change)="changeName($event)">
+  <div [ngSwitch]="person().name">
+    <p *ngSwitchCase="'NoxDev'">yo soy {{person().name}}</p>
+    <p *ngSwitchCase="'Alejandra'">yo soy {{person().name}}</p>
+    <p *ngSwitchCase="'Elena'">yo soy {{person().name}}</p>
+    <p *ngSwitchCase="'Emely'">yo soy {{person().name}}</p>
+    <p *ngSwitchDefault>yo no me llamo  {{person().name}}</p>
+  </div>
+<hr>
+<input type="color" [formControl]="colorCtrl">
+
+<p>Color:{{colorCtrl.value}} </p>
+
+
+
+</article>
