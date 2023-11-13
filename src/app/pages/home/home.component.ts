@@ -77,4 +77,18 @@ export class HomeComponent {
       })
     })
   }
+
+  upDateTaskEditMode(index: number) {
+    this.tasks.update(prevState => {
+      return prevState.map((task, position) => {
+        if (position === index) {
+          return {
+            ...task,
+            editing: true
+          }
+        }
+        return task;
+      })
+    });
+  }
 }

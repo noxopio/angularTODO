@@ -55,13 +55,27 @@
     <p *ngSwitchCase="'Alejandra'">yo soy {{person().name}}</p>
     <p *ngSwitchCase="'Elena'">yo soy {{person().name}}</p>
     <p *ngSwitchCase="'Emely'">yo soy {{person().name}}</p>
-    <p *ngSwitchDefault>yo no me llamo  {{person().name}}</p>
+    <p *ngSwitchDefault>yo no me llamo {{person().name}}</p>
   </div>
-<hr>
-<input type="color" [formControl]="colorCtrl">
+  <hr>
+  <input type="color" [formControl]="colorCtrl">
 
-<p>Color:{{colorCtrl.value}} </p>
+  <p>Color:{{colorCtrl.value}} </p>
 
+  <svg>
+    <g>
+      <rect x="0" y="0" height="100" witdh="100" [attr.fil]="colorCtrl.value" />
+    </g>
+  </svg>
+  <hr>
+  <span class="box" [style.width.px]="widthCtrl.value"></span>
+  <input type="number" [formControl]="widthCtrl">
+  <hr>
+
+  <p>
+    <input type="text" [formControl]='nameCtrl'> <br />
+    <span class="message-error" [class.show]="nameCtrl.invalid && nameCtrl.touched">Nombre invalido</span>
+  </p>
 
 
 </article>

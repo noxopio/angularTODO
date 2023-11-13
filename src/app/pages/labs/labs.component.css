@@ -4,11 +4,27 @@
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  color: rgb(12, 219, 53);
-  background-color: #000000;
+  color: rgb(22, 22, 22);
+  background-color: #f2eaea;
   text-decoration: none;
   padding: 1rem;
 }
 .container ul li {
   list-style: none;
+}
+
+.box{
+  height: 10px;
+  display: block;
+  background-color: red;
+}
+.message-error{
+background-color: red;
+color: white;
+opacity: 0;
+transition: all ease 400ms;
+}
+.message-error.show
+{
+opacity: 1;
 }
