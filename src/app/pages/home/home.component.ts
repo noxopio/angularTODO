@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../models/task.model';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -16,20 +16,25 @@ export class HomeComponent {
   tasks = signal<Task[]>([
     {
       id: Date.now(),
-      title: 'crear proyecto',
+      title: 'Angular',
       completed: false
     },
     {
       id: Date.now(),
-      title: 'crear  componentes',
+      title: 'React',
+      completed: false
+    },
+    {
+      id: Date.now(),
+      title: 'Next',
       completed: false
     },
   ]);
-  filter = signal('all');
+  filter = signal<'all'| 'pending'| 'completed'>('all');
   tasksByFilter = computed(() => {
     const filter = this.filter();
     const tasks = this.tasks();
-    if (filter === 'pendign') {
+    if (filter === 'pending') {
       return tasks.filter(task => !task.completed);
     }
     if (filter === 'completed') {
@@ -47,6 +52,14 @@ export class HomeComponent {
       Validators.minLength(3),
     ]
   })
+
+constructor(){
+effect(()=>{
+const tasks=this.tasks();
+localStorage.setItem('tasks',JSON.stringify(tasks));
+})
+}
+
 
   changeHandler() {
     if (this.newTaskCtrl.valid) {
@@ -123,7 +136,7 @@ export class HomeComponent {
     });
   }
 
-  changeFilter(filter: string) {
+  changeFilter(filter: 'all'|'pending'|'completed') {
     this.filter.set(filter);
   }
 }
