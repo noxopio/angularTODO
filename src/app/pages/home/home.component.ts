@@ -1,4 +1,4 @@
-import { Component, computed, effect, signal } from '@angular/core';
+import { Component, Injector, computed, effect,inject,signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../../models/task.model';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,23 +14,23 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 export class HomeComponent {
 
   tasks = signal<Task[]>([
-    {
-      id: Date.now(),
-      title: 'Angular',
-      completed: false
-    },
-    {
-      id: Date.now(),
-      title: 'React',
-      completed: false
-    },
-    {
-      id: Date.now(),
-      title: 'Next',
-      completed: false
-    },
+    // {
+    //   id: Date.now(),
+    //   title: 'Angular',
+    //   completed: false
+    // },
+    // {
+    //   id: Date.now(),
+    //   title: 'React',
+    //   completed: false
+    // },
+    // {
+    //   id: Date.now(),
+    //   title: 'Next',
+    //   completed: false
+    // },
   ]);
-  filter = signal<'all'| 'pending'| 'completed'>('all');
+  filter = signal<'all' | 'pending' | 'completed'>('all');
   tasksByFilter = computed(() => {
     const filter = this.filter();
     const tasks = this.tasks();
@@ -53,12 +53,22 @@ export class HomeComponent {
     ]
   })
 
-constructor(){
-effect(()=>{
-const tasks=this.tasks();
-localStorage.setItem('tasks',JSON.stringify(tasks));
-})
-}
+injector =inject(Injector)
+
+  ngOnInit() {
+    const storage = localStorage.getItem('tasks');
+    if (storage) {
+      const tasks = JSON.parse(storage);
+      this.tasks.set(tasks);
+    }
+    this.trackTasks();
+  }
+  trackTasks() {
+      effect(() => {
+        const tasks = this.tasks();
+        localStorage.setItem('tasks',JSON.stringify(tasks));
+      },{injector:this.injector});
+  }
 
 
   changeHandler() {
@@ -136,7 +146,7 @@ localStorage.setItem('tasks',JSON.stringify(tasks));
     });
   }
 
-  changeFilter(filter: 'all'|'pending'|'completed') {
+  changeFilter(filter: 'all' | 'pending' | 'completed') {
     this.filter.set(filter);
   }
 }
