@@ -2,8 +2,6 @@ import { Component, Injector, computed, effect,inject,signal } from '@angular/co
 import { CommonModule } from '@angular/common';
 import { Task } from '../../models/task.model';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-
-
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -12,7 +10,6 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
   tasks = signal<Task[]>([
     // {
     //   id: Date.now(),
@@ -43,7 +40,6 @@ export class HomeComponent {
     return tasks;
   })
 
-
   newTaskCtrl = new FormControl('', {
     nonNullable: true,
     validators: [
@@ -69,7 +65,6 @@ injector =inject(Injector)
         localStorage.setItem('tasks',JSON.stringify(tasks));
       },{injector:this.injector});
   }
-
 
   changeHandler() {
     if (this.newTaskCtrl.valid) {
@@ -113,7 +108,6 @@ injector =inject(Injector)
       })
     })
   }
-
   updateTaskEditingMode(index: number) {
     this.tasks.update(prevState => {
       return prevState.map((task, position) => {

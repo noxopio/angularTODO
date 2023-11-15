@@ -11,7 +11,7 @@
   <img [src]="img" alt="">
   <input type="number" [value]="person().age">
   <button [disabled]="disabled">Click me</button>
-  <p>person():{{person().name}}</p>
+  <p>person:{{person().name}}</p>
   <img [src]="person().avatar" alt="" />
   <hr>
   <button (click)="clickHandler()">Click</button>
@@ -40,6 +40,11 @@
   <div *ngIf="name()==='NoxDev'">
     soy nicolas
   </div>
+  @if (name() === 'NoxDev' ){
+
+  <div>soy el desde la nueva sintaxis {{name()}} </div>
+
+  }
   <div *ngIf="person().name === 'NoxDev'&& person().age>18;else elseBlock">
     un dos tres por {{ name()}} que esta aprediendo angular
   </div>
@@ -47,6 +52,16 @@
   <ng-template #elseBlock>
     yei otro block
   </ng-template>
+  <hr>
+  <h2>
+    If else new
+  </h2>
+  @if (person().name==='NoxDev'&& person().age>18){
+  <p>soy {{name()}} un if desde la nueva sintaxis </p>
+  }@else {
+  <p> soy {{name()}} desde el else de la nueva sintaxis de Angular </p>
+  }
+
 
 
   <input type="text" [value]="person().name" (change)="changeName($event)">
@@ -76,6 +91,49 @@
     <input type="text" [formControl]='nameCtrl'> <br />
     <span class="message-error" [class.show]="nameCtrl.invalid && nameCtrl.touched">Nombre invalido</span>
   </p>
+
+  <ul>
+    <p>total:{{tasks().length}} </p>
+    <li *ngFor="let task of tasks(); index as i">{{i}} {{task}} </li>
+  </ul>
+
+  <ul>
+    @for (task of tasks(); track task;let i =$index) {
+    <li> {{i}} {{task}} </li>
+    }@empty  {
+      <li><strong>list is empty</strong></li>
+    }
+
+  </ul>
+
+  <hr>
+  <h3>new Switch</h3>
+  <div [ngSwitch]="person().name">
+    <p *ngSwitchCase="'NoxDev'">yo soy {{person().name}}</p>
+    <p *ngSwitchCase="'Alejandra'">yo soy {{person().name}}</p>
+    <p *ngSwitchCase="'Elena'">yo soy {{person().name}}</p>
+    <p *ngSwitchCase="'Emely'">yo soy {{person().name}}</p>
+    <p *ngSwitchDefault>yo no me llamo {{person().name}}</p>
+  </div>
+  <div>
+
+    @switch (person().name) {
+@case ('NoxDev') {
+  <p>soy {{name()}} desde un switch nuevo</p>
+
+}
+@case ('Alejandra') {
+  <p>soy {{person().name}} desde un switch nuevo</p>
+
+}
+@default {
+  <p>yo no me llamo javier desde un switch nuevo </p>
+}
+
+    }
+
+  </div>
+
 
 
 </article>
